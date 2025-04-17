@@ -2,7 +2,7 @@ from parsel import Selector
 
 from news_parser.cnn import CNNParser
 
-def parse_article(url: str, html: str | Selector):
+def parse_article(*, url: str, html: str | Selector):
     mapping = {
         "cnn": CNNParser,
     }
