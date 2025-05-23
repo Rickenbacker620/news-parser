@@ -38,13 +38,12 @@ def test_parse_date(parsed_article):
     time = parsed_article.time
     assert time == datetime.fromisoformat("2025-01-24T23:33:40")
 
-# REVIEW
 def test_parse_paragraphs(parsed_article):
     paragraphs = parsed_article.paragraphs
 
-    assert paragraphs[0].startswith(
-        "President Donald Trump is emphasizing that targeting Russia’s oil revenue is the best way to get Moscow to end its nearly three-year war against Ukraine."
-    )
+    assert len(paragraphs) == 32
+
+    assert "WASHINGTON (AP) — President Donald Trump is emphasizing that targeting Russia’s oil revenue is the best way to get Moscow to end its nearly three-year war against Ukraine." in paragraphs[0]
 
 def test_parse_tags(parsed_article):
     tags = parsed_article.tags

@@ -1,6 +1,7 @@
 from parsel import Selector
 from typing import Optional, Set
 from datetime import datetime
+import re
 import json
 from .common import NewsParser
 
@@ -37,11 +38,13 @@ class APParser(NewsParser):
         raw_title = self.selector.css("title::text").get()
         return raw_title.strip().removesuffix(" | AP News") if raw_title else ""
 
-    # REVIEW
     def get_paragraphs(self) -> list[str]:
-        description = self.ld_json.get("description")
-        if description:
-            return [description.strip()]
+        if not hasattr(self, "selector") or self.selector is None:
+            return []
+
+        raw_paragraphs = self.selector.css("div.RichTextStoryBody p").xpath("string()").getall()
+        clean_paragraphs = [re.sub(r'\s+', ' ', p).strip() for p in raw_paragraphs if p.strip()]
+        return clean_paragraphs
 
     def get_authors(self) -> Optional[Set[str]]:
         authors = set()
