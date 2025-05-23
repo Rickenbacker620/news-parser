@@ -31,7 +31,7 @@ def cleanup_content(v: str | list[str]) -> str:
 
 
 ArticleTitle = Annotated[
-    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=300)
 ]
 ArticleTag = Annotated[
     str, StringConstraints(strip_whitespace=True, min_length=1, max_length=40)
